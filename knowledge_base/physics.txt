@@ -1,0 +1,3 @@
+Physics: Includes Mechanics, Thermodynamics, and Waves as per Tamil Nadu Samacheer Kalvi Class 12 syllabus. Newton’s Second Law states that force equals mass times acceleration (F = ma). Thermodynamics’ First Law is the law of energy conservation, stating that the change in internal energy equals heat added minus work done (ΔU = Q - W). Waves involve concepts like frequency and wavelength, where speed = frequency × wavelength.
+
+Worldwide Knowledge: Newton’s laws are foundational in global physics, applied in everything from car safety to space travel (e.g., NASA’s rocket launches). Thermodynamics principles govern engines worldwide, like in car engines or power plants.

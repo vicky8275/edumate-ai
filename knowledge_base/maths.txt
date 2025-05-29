@@ -1,0 +1,3 @@
+Mathematics: Covers Calculus, Linear Algebra, and Probability as per Tamil Nadu Samacheer Kalvi Class 12 syllabus. For example, differentiation is a process to find the rate of change, e.g., the derivative of x^2 is 2x. Integration is the reverse process, e.g., the integral of 2x is x^2 + C. Matrices in Linear Algebra involve operations like addition and multiplication, used in solving systems of equations.
+
+Worldwide Knowledge: Calculus, developed by Newton and Leibniz, is a universal tool in engineering and physics, such as calculating planetary motion. Probability concepts, like the probability of an event P(E) = (Number of favorable outcomes)/(Total outcomes), are used globally in statistics and data science.
