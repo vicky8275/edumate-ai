@@ -1,0 +1,38 @@
+ENGINEERING MATHEMATICS I (MA3151)
+
+UNIT I MATRICES
+Eigenvalues and Eigenvectors: Definition, properties, and computation for symmetric and non-symmetric matrices.
+Cayley-Hamilton Theorem: Statement and verification. Applications to finding inverse and powers of matrices.
+Diagonalization of matrices: Orthogonal transformation, similarity transformation.
+Quadratic Forms: Reduction of quadratic form to canonical form by orthogonal transformation. Nature of quadratic forms (positive definite, negative definite, indefinite, semi-definite).
+Real Symmetric Matrices: Properties, diagonalization.
+
+UNIT II VECTOR CALCULUS
+Gradient, Divergence and Curl: Definition and physical interpretation. Vector identities.
+Directional Derivatives: Rate of change in a given direction.
+Line Integral: Definition, properties. Green's theorem in a plane (statement only), applications to area computation.
+Surface Integral: Definition. Gauss Divergence theorem (statement only), applications to flux computation.
+Volume Integral: Definition. Stokes' theorem (statement only), applications to circulation computation.
+Irrotational and Solenoidal Vector Fields: Conditions and examples.
+
+UNIT III COMPLEX NUMBERS AND SERIES
+Complex Numbers: Argand diagram, polar form, Euler's formula. De Moivre's theorem for integer and rational indices, applications to finding roots of complex numbers.
+Series Expansions: Taylor and Maclaurin series for elementary functions.
+Binomial series, Exponential series, Logarithmic series.
+Fourier Series: Definition. Dirichlet's conditions. Half-range cosine and sine series. Parseval's identity. Harmonic analysis.
+
+UNIT IV MULTIVARIABLE CALCULUS
+Partial Derivatives: Definition, higher order partial derivatives. Chain Rule.
+Total Derivative: Definition and applications.
+Jacobians: Functional dependence.
+Taylor's Series for functions of two variables.
+Maxima and Minima of functions of two variables: Lagrange's method of undetermined multipliers.
+
+UNIT V ORDINARY DIFFERENTIAL EQUATIONS
+First Order Linear Differential Equations: Integrating factor.
+Homogeneous Differential Equations.
+Exact Differential Equations.
+Second Order Linear Differential Equations with Constant Coefficients: Homogeneous and non-homogeneous equations.
+Method of Variation of Parameters.
+Euler-Cauchy Equations.
+Applications: Modelling of electrical circuits (RLC series circuits), simple harmonic motion.

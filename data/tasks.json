@@ -1,0 +1,42 @@
+[
+    {
+        "task": "Complete Calculus Assignment",
+        "due_date": "2025-06-01",
+        "completed": true
+    },
+    {
+        "task": "Study ",
+        "due_date": "2025-05-31",
+        "completed": true
+    },
+    {
+        "task": "Study Photosynthesis",
+        "due_date": "2025-05-30",
+        "completed": true
+    },
+    {
+        "task": "Study History",
+        "due_date": "2025-05-31",
+        "completed": true
+    },
+    {
+        "task": "Study Poem 2 in English",
+        "due_date": "2025-05-29",
+        "completed": true
+    },
+    {
+        "task": "Workout Geometry Diagrams",
+        "due_date": "2025-05-31",
+        "completed": true
+    },
+    {
+        "task": "Learn thermodynamics",
+        "due_date": "2025-05-29",
+        "completed": true
+    },
+    {
+        "task": "Do the Mathematics Algebra sums",
+        "due_date": "2025-05-29",
+        "completed": true
+    }
+]

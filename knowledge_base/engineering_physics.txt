@@ -1,0 +1,45 @@
+ENGINEERING PHYSICS (PH3151)
+
+UNIT I PROPERTIES OF MATTER
+Elasticity: Stress-Strain diagram. Elastic moduli (Young's, Bulk, Rigidity). Poisson's ratio.
+Stress-Strain Curve: Elastic limit, yield point, ultimate tensile strength, fracture point.
+Cantilever: Bending moment. Depression of a cantilever.
+Uniform and Non-Uniform Bending: Experimental determination of Young's Modulus.
+Torsion: Torsion in a wire, torsional pendulum. Rigidity modulus determination.
+Viscosity: Streamline flow, turbulent flow. Reynolds number. Poiseuille's formula. Determination of coefficient of viscosity (Poiseuille's method).
+Surface Tension: Surface energy, angle of contact. Capillarity.
+
+UNIT II WAVES AND OPTICS
+Oscillations: Simple Harmonic Motion. Damped and forced oscillations. Resonance.
+Wave Motion: Types of waves (transverse, longitudinal). Wave equation.
+Ultrasonics: Generation (piezoelectric, magnetostriction). Properties. Applications (NDT, medical).
+Interference: Young's double slit experiment. Conditions for sustained interference. Interference in thin films (wedge film). Newton's rings.
+Diffraction: Fresnel and Fraunhofer diffraction. Single slit diffraction. Diffraction grating.
+Polarization: Types of polarization (linear, circular, elliptical). Brewster's law. Double refraction. Nicol prism.
+
+UNIT III QUANTUM PHYSICS AND LASERS
+Quantum Mechanics: Black body radiation, Planck's quantum hypothesis. Photoelectric effect. Compton effect.
+Wave-Particle Duality: De Broglie wavelength. Heisenberg's Uncertainty Principle.
+Schrödinger's Wave Equation: Time-dependent and time-independent forms. Particle in a one-dimensional potential box.
+Lasers: Principle (stimulated emission, population inversion). Einstein's coefficients.
+Types of Lasers: Nd:YAG laser, CO2 laser, Semiconductor laser (homojunction).
+Applications of Lasers: Industrial (cutting, welding), medical (surgery), communication.
+
+UNIT IV CRYSTAL PHYSICS
+Crystalline and Amorphous Solids: Differences.
+Unit Cell: Lattice parameters. Crystal systems (7 crystal systems).
+Bravais Lattices: Primitive, body-centered, face-centered, end-centered.
+Miller Indices: Planes and directions. Interplanar spacing.
+Crystal Structures: Simple cubic, Body Centered Cubic (BCC), Face Centered Cubic (FCC), Hexagonal Close Packed (HCP).
+X-ray Diffraction: Bragg's law. Experimental methods (powder method, Laue method).
+Crystal Imperfections: Point defects (vacancy, interstitial), line defects (dislocations).
+
+UNIT V SEMICONDUCTOR PHYSICS
+Semiconductors: Intrinsic and Extrinsic (n-type, p-type) semiconductors. Carrier concentration.
+Fermi Level: Position in intrinsic, n-type, and p-type semiconductors.
+Hall Effect: Principle, applications to determine carrier concentration and mobility.
+PN Junction Diode: Construction, V-I characteristics, forward bias, reverse bias.
+Zener Diode: Principle, characteristics, applications (voltage regulator).
+Light Emitting Diode (LED): Principle, construction, working.
+Photodiode: Principle, construction, working.
+Solar Cell: Principle, construction, working, characteristics.

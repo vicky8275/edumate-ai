@@ -1,0 +1,47 @@
+ENGINEERING CHEMISTRY (CY3151)
+
+UNIT I WATER TECHNOLOGY AND SURFACE CHEMISTRY
+Water Technology: Sources of water. Impurities in water (physical, chemical, biological).
+Hardness of Water: Types of hardness (temporary, permanent). Disadvantages of hard water.
+Softening Methods: Internal conditioning (phosphate, calgon, colloidal). External conditioning (zeolite, ion-exchange process).
+Demineralization: Reverse osmosis.
+Boiler Feed Water: Requirements. Boiler troubles (scale, sludge, foaming, priming, caustic embrittlement, corrosion).
+Surface Chemistry: Adsorption (physical, chemical). Adsorption isotherms (Freundlich, Langmuir).
+Applications of Adsorption: Pollution control, catalysis.
+
+UNIT II ELECTROCHEMISTRY AND CORROSION
+Electrochemistry: Electrochemical cells (Galvanic, Electrolytic). Electrode potential. Standard electrode potential.
+Nernst Equation: Applications to single electrode potential and cell potential.
+Reference Electrodes: Standard Hydrogen Electrode (SHE), Calomel electrode.
+Ion-Selective Electrodes: pH electrode, glass electrode.
+Batteries: Primary batteries (dry cell, alkaline battery). Secondary batteries (lead-acid battery, nickel-cadmium battery, lithium-ion battery).
+Corrosion: Definition, types (atmospheric, galvanic, pitting, stress corrosion).
+Mechanism of Corrosion: Electrochemical theory of corrosion.
+Corrosion Control Methods: Sacrificial anode, impressed current cathodic protection, protective coatings (metallic, non-metallic, organic).
+
+UNIT III FUELS AND COMBUSTION
+Fuels: Classification of fuels (solid, liquid, gaseous). Characteristics of good fuel.
+Solid Fuels: Coal (types, proximate and ultimate analysis). Coke (manufacture, properties).
+Liquid Fuels: Petroleum (refining, fractions). Cracking (thermal, catalytic). Knocking. Octane number, Cetane number.
+Gaseous Fuels: Natural gas, producer gas, water gas, biogas.
+Combustion: Principles of combustion. Calorific value (gross, net).
+Flue Gas Analysis: Orsat apparatus.
+
+UNIT IV POLYMERS AND COMPOSITE MATERIALS
+Polymers: Classification (thermoplastics, thermosets). Types of polymerization (addition, condensation).
+Properties of Polymers: Molecular weight, degree of polymerization, tacticity, crystallinity.
+Important Thermoplastics: Polyethylene, polypropylene, PVC, polystyrene.
+Important Thermosets: Bakelite, epoxy resins.
+Elastomers: Natural rubber, synthetic rubbers (Buna-S, Buna-N).
+Conducting Polymers: Classification, mechanism of conduction. Applications.
+Composite Materials: Definition, classification (Fibre Reinforced, Particle Reinforced, Laminar).
+Properties and Applications of Composites.
+
+UNIT V NON-CONVENTIONAL ENERGY SOURCES
+Solar Energy: Solar cells (photovoltaic effect, construction, working). Solar water heater.
+Wind Energy: Basic principles, types of wind turbines.
+Biomass Energy: Biogas production (anaerobic digestion).
+Geothermal Energy: Types of geothermal systems.
+Ocean Energy: Ocean Thermal Energy Conversion (OTEC), Wave energy, Tidal energy.
+Hydrogen Energy: Production (electrolytic, thermochemical). Storage (compressed, liquid, metal hydrides). Fuel cells (types, working, applications).
+Nuclear Energy: Fission, fusion. Nuclear reactors (components, types).

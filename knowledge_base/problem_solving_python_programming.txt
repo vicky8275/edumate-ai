@@ -1,0 +1,49 @@
+PROBLEM SOLVING AND PYTHON PROGRAMMING (GE3151)
+
+UNIT I ALGORITHMIC THINKING AND PROBLEM SOLVING
+Algorithms: Definition, characteristics of a good algorithm.
+Flowcharts: Symbols, drawing flowcharts for simple problems.
+Pseudocode: Writing pseudocode for simple problems.
+Building Blocks of Algorithms: Statements, state, control flow, functions.
+Problem Solving Techniques: Decomposition, abstraction, pattern recognition, algorithms.
+Example Problems: Swapping two variables, sum of n numbers, finding the largest of three numbers, factorial, Fibonacci series.
+
+UNIT II DATA, EXPRESSIONS, STATEMENTS
+Python Basics: Introduction to Python, features, installation.
+Variables and Data Types: Integers, floats, strings, booleans. Type conversion.
+Operators: Arithmetic, relational, logical, assignment, bitwise, identity, membership.
+Expressions: Evaluation order, precedence.
+Statements: Simple statements (assignment, print). Compound statements (if, while, for).
+Input and Output: `input()` and `print()` functions.
+Comments: Single-line, multi-line.
+Debugging: Basic debugging techniques.
+
+UNIT III CONTROL FLOW, FUNCTIONS, AND MODULES
+Control Flow:
+Conditional Statements: `if`, `elif`, `else`. Nested conditionals.
+Looping Statements: `while` loop, `for` loop. `break`, `continue`, `pass` statements. Nested loops.
+Functions:
+Definition of functions: `def` keyword. Parameters, arguments.
+Return values: `return` statement.
+Local and global variables.
+Recursion: Concept and examples (factorial, Fibonacci).
+Modules: Importing modules (e.g., `math`, `random`). Creating and using user-defined modules.
+
+UNIT IV LISTS, TUPLES, DICTIONARIES
+Lists: Creation, accessing elements, slicing, operations (append, insert, remove, pop, sort, reverse). List comprehensions.
+Tuples: Creation, accessing elements, slicing, immutability.
+Dictionaries: Creation, accessing elements, adding/deleting entries, iterating over items.
+Sets: Creation, operations (union, intersection, difference).
+Strings: Immutability, string methods (split, join, strip, find, replace). Formatting strings.
+
+UNIT V FILES, EXCEPTIONS, AND PACKAGES
+Files:
+File Operations: Opening, reading, writing, closing files. File modes (`'r'`, `'w'`, `'a'`).
+Working with text files, CSV files.
+File paths, `os` module functions (e.g., `os.path.exists`).
+Exceptions:
+Error Handling: `try`, `except`, `else`, `finally` blocks.
+Common Exceptions: `ValueError`, `TypeError`, `FileNotFoundError`, `ZeroDivisionError`.
+User-defined exceptions.
+Packages: Introduction to packages, creating and installing packages.
+Using external libraries/packages (e.g., `pip`).

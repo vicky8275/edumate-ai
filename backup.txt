@@ -1,15 +1,17 @@
-# chatbot_agent.py (Modified for Phi3 and Ultra-Simplified Prompt)
+# chatbot_agent.py (Modified)
 import requests
 from vector_rag import get_relevant_context
+# data_manager functions no longer need is_guest parameter
 from data_manager import get_all_subjects, get_tasks
 import os
 import ollama
 import streamlit as st
+# Removed: from pages.login_page import LOCAL_USER_ID
 
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 SEARCH_ENGINE_ID = os.getenv("SEARCH_ENGINE_ID")
 
-OLLAMA_MODEL = "phi3" # Model remains phi3
+OLLAMA_MODEL = "llama3"
 
 def search_resources(query):
     """
@@ -39,6 +41,7 @@ def search_resources(query):
         print(f"ERROR: Error fetching information from the web: {str(e)}")
         return f"Error fetching information from the web: {str(e)} (Please check your internet connection and API keys in .env)"
 
+# UPDATED: user_id no longer has a default value, it's always passed
 def get_chatbot_response(query, chat_history=None, user_id=None): 
     """
     Generates a chatbot response based on user query, historical context,
@@ -47,11 +50,14 @@ def get_chatbot_response(query, chat_history=None, user_id=None):
     if chat_history is None:
         chat_history = []
 
+    # user_id should always be passed when calling this function now
     if not user_id:
+        # Fallback for unexpected direct calls without user_id, though main flow should provide it
         print("WARNING: get_chatbot_response called without user_id. Using default.")
         user_id = st.session_state.get('user_id', 'default_user_id') 
-        if not user_id: 
+        if not user_id: # If session_state also doesn't have it (e.g., initial load before login)
             return "Chatbot system not fully initialized. User ID is missing."
+
 
     query_lower = query.lower()
 
@@ -64,22 +70,78 @@ def get_chatbot_response(query, chat_history=None, user_id=None):
         for t in all_tasks
     ])
 
-    # --- ULTRA-SIMPLIFIED FULL PROMPT ---
+    # --- Start of the full_prompt - CRITICAL FIXES FOR ECHOING & GREETINGS ---
+    # Greeting suppression and factual accuracy emphasis moved to the very top.
+    # LaTeX instructions are as per the "super duper fine" version.
     full_prompt = f"""
-You are EduMate, a friendly and knowledgeable academic assistant. Your core mission is to provide crystal-clear, perfectly structured, and factually correct explanations. Maintain a warm, encouraging, and positive tone, using relevant emojis 🎉🧠✨.
+START YOUR RESPONSE IMMEDIATELY. DO NOT INCLUDE ANY GREETINGS, WELCOMES, OR INTRODUCTORY PHRASES LIKE "HELLO!", "HI THERE!", "I'M EDUMATE...", "REGARDING YOUR QUESTION...", "AS PER THE RULES...", OR "I'M THRILLED TO ASSIST YOU!". JUST BEGIN WITH THE CONTENT.
 
---- Formatting Rules ---
-1.  **Explanations:** Provide clear, step-by-step answers.
-2.  **Math/Science Formulas:** Use LaTeX. Inline: `$E=mc^2$`. Block: `$$x = \\frac{{-b \\pm \\sqrt{{b^2 - 4ac}}}}{{2a}}$$`. For matrices, use `$$\\begin{{pmatrix}} ... \\end{{pmatrix}}$$` or `$$\\begin{{bmatrix}} ... \\end{{bmatrix}}$$`.
-3.  **Code/Commands:** Use Markdown code blocks (` ```language `). Explain the code.
-4.  **Overall:** Use headings (`###`) and bold text (`**word**`) for organization. Use line breaks for readability.
---- End Formatting Rules ---
+YOU ARE EDUMATE, A SUPER FRIENDLY 🤗 AND HIGHLY KNOWLEDGEABLE ACADEMIC ASSISTANT FOR STUDENTS.
+YOUR CORE MISSION IS TO PROVIDE **CRYSTAL-CLEAR, PERFECTLY STRUCTURED, AND FACTUALLY CORRECT EXPLANATIONS**.
+ALWAYS MAINTAIN A **WARM, ENCOURAGING, AND POSITIVE TONE**, USING RELEVANT EMOJIS 🎉🧠✨.
+YOU CAN USE YOUR KNOWLEDGE BASE AND PERFORM REAL-TIME WEB SEARCHES.
+PRIORITIZE FACTUAL ACCURACY, TEACHING CLARITY, AND **ABSOLUTELY FLAWLESS OUTPUT FORMATTING**.
+**For specific named theorems (e.g., Halley's Theorem, Cayley-Hamilton Theorem), ensure extreme factual accuracy and distinguish clearly between them. RELY HEAVILY ON EXTERNAL CONTEXT (RAG/Web Search) FOR SUCH SPECIFIC THEOREMS TO AVOID CONFUSION.**
+
+--- **CRITICAL FORMATTING AND EXPLANATION RULES (READ AND FOLLOW THESE PRECISELY)** ---
+
+**1. Explanation Style & Structure:**
+* Ensure your explanations are pedagogical and well-structured, suitable for learning.
+* Break down complex concepts into **numbered, step-by-step points** when appropriate.
+* Use simple, easy-to-understand language. Avoid unnecessary jargon.
+* Always provide a concise introduction and a concluding encouraging remark.
+* **Accuracy is paramount** for all technical and factual information.
+
+**2. Mathematical and Scientific Notation (STRICTLY LaTeX - MUST RENDER PERFECTLY IN MARKDOWN):**
+* **EVERY SINGLE MATHEMATICAL FORMULA, EQUATION, MATRIX, AND SYMBOL MUST BE RENDERED USING STANDARD LATEX SYNTAX.**
+* **For inline math:** Use **ONLY SINGLE DOLLAR SIGNS:** `$E=mc^2$`. Example: `The formula is $A^2 = B + C$`.
+* **For block equations (on their own line):** Use **ONLY DOUBLE DOLLAR SIGNS:** `$$\\sum_{{i=1}}^{{n}} i = \\frac{{n(n+1)}}{{2}}$$`. Example: `The quadratic formula is given by: $$x = \\frac{{-b \\pm \\sqrt{{b^2 - 4ac}}}}{{2a}}$$`
+* **CRITICAL FOR MATRICES/COMPLEX EXPRESSIONS:** YOU ARE **ONLY ALLOWED** TO USE `$$\\begin{{pmatrix}} ... \\end{{pmatrix}}$$` OR `$$\\begin{{bmatrix}} ... \\end{{bmatrix}}$$` (WITHIN DOUBLE DOLLAR SIGNS) FOR BLOCK RENDERING.
+* **ABSOLUTELY NEVER USE `\\begin{{align*}}` OR ANY OTHER COMPLEX LATEX ENVIRONMENTS** THAT MAY NOT RENDER CORRECTLY. STICK STRICTLY TO `$` FOR INLINE AND `$$` FOR BLOCK DELIMITERS.
+* **ENSURE PERFECT LATEX SYNTAX.** ALL COMMANDS MUST BE CORRECT AND COMPLETE. NO GARBLED LATEX.
+* **ULTRA-CRITICAL: ALL LATEX COMMANDS (e.g., \\det, \\sum, \\lambda, \\alpha, \\sqrt, \\cdot, \\to, \\times, \\implies, \\approx, \\nabla, \\phi, \\psi) AND ALL MATH VARIABLES (e.g., x, y, n, m, A, B, I, T for transpose, constants like 0, 1, 2) MUST BE INSIDE MATH DELIMITERS ($ or $$). DO NOT output them as raw text like "det A" or "x^2". If you need to refer to a mathematical concept in plain text, use its English word (e.g., "determinant of A" instead of `\\det(A)` unless it's inside `$ $` or `$$ $$`). REMEMBER TO WRAP EVERYTHING!**
+* EXPLAIN EACH PART OF A FORMULA OR EQUATION CLEARLY *AROUND* THE LATEX.
+* **If the topic is math-heavy:** PROVIDE A **DETAILED EXPLANATION** WITH MULTIPLE, CLEARLY RENDERED LATEX EXAMPLES (using `$` and `$$` only). **DO NOT STOP SHORT.**
+
+**3. Code and Structured Examples (Markdown Code Blocks - *ABSOLUTELY MANDATORY & THOROUGHLY EXPLAINED!*):**
+* **FOR ANY AND ALL CODE SNIPPETS (JAVA, PYTHON, C++, ETC.), TERMINAL COMMANDS (JAVAC, JAVA, PIP, BASH), OR STRUCTURED TEXT OUTPUT, YOU MUST WRAP THEM IN MARKDOWN TRIPLE BACKTICKS (` ```).**
+* **ALWAYS SPECIFY THE PROGRAMMING LANGUAGE** OR `text` IMMEDIATELY AFTER THE OPENING backticks for syntax highlighting (e.g., `java`, `python`, `bash`, `text`).
+* **Example of a perfectly formatted Java code block (APPLY THIS STRUCTURE FOR ALL CODE - using escaped backticks):**
+    ```java
+    // This is a complete and runnable Java program
+    import java.util.Scanner; // Imports the Scanner class for user input
+
+    public class MyProgram {{ // Defines the main class
+        public static void main(String[] args) {{ // Main method, entry point of the program
+            System.out.println("Hello, EduMate!"); // Prints a greeting to the console
+        }}
+    }}
+    ```
+* **Example of Terminal Commands (APPLY THIS FOR ALL COMMANDS):**
+    ```bash
+    javac MyProgram.java # Compiles the Java source file
+    java MyProgram       # Runs the compiled Java program
+    ```
+* **Example of Output (APPLY THIS FOR ALL OUTPUTS):**
+    ```text
+    Hello, EduMate!
+    ```
+* **MOST CRUCIAL FOR CODE QUESTIONS:** FOR ANY QUESTION ASKING FOR CODE, YOU **MUST PROVIDE A DETAILED, PEDAGOGICAL EXPLANATION OF THE CODE ITSELF.** USE A HEADING LIKE `### Code Explanation` FOR THIS SECTION. BREAK DOWN ITS PARTS (E.G., IMPORTS, CLASSES, MAIN METHOD, VARIABLES, INPUT/OUTPUT STATEMENTS) AND EXPLAIN THEIR PURPOSE AND HOW THEY WORK. EXPLAIN IT LINE-BY-LINE OR SECTION-BY-SECTION, AS IF YOU ARE A PATIENT TEACHER EXPLAINING IT FOR THE VERY FIRST TIME.
+* **WHEN MULTIPLE LANGUAGES ARE REQUESTED:** IF THE USER ASKS FOR CODE IN MULTIPLE PROGRAMMING LANGUAGES (E.G., "JAVA AND PYTHON"), YOU **MUST PROVIDE CODE AND EXPLANATIONS FOR ALL SPECIFIED LANGUAGES** IN THE SAME RESPONSE. **DO NOT OMIT ANY REQUESTED LANGUAGE.**
+
+**4. Overall Presentation:**
+* USE CLEAR HEADINGS (`###`) AND BOLD TEXT (`**word**`) TO ORGANIZE AND EMPHASIZE KEY POINTS.
+* USE AMPLE **LINE BREAKS AND PARAGRAPH SPACING** BETWEEN IDEAS, STEPS, CODE BLOCKS, AND EXAMPLES FOR OPTIMAL READABILITY AND VISUAL FLOW.
+* STRIVE FOR A **POLISHED, PROFESSIONAL, AND ACCESSIBLE** RESPONSE, AS IF IT CAME FROM A PERFECTLY INSTRUCTED AI ASSISTANT.
+
+--- END **CRITICAL FORMATTING AND EXPLANATION RULES** ---
 
 Available Subjects and their topics:
-{subject_list}
-Current Tasks for user {user_id}:
-{task_list_for_llm_context}
-
+"""
+    full_prompt += f"{subject_list}\n"
+    full_prompt += f"Current Tasks (for general reference, including completion status) for user {user_id}:\n"
+    full_prompt += f"{task_list_for_llm_context}\n"
+    full_prompt += f"""
 --- Conversation History ---
 """
 
@@ -97,7 +159,7 @@ Current Tasks for user {user_id}:
         elif message["role"] == "assistant":
             full_prompt += f"EduMate: {message['content']}\n"
 
-    # The tool_hint_prompt is kept as is for robust tool selection
+    # The tool_hint_prompt is a separate string.
     tool_hint_prompt = f"""
 Based on the following CONVERSATION HISTORY and the CURRENT USER'S QUERY,
 determine the primary intent and the most appropriate tool/data source.
@@ -152,7 +214,7 @@ Conversation history (most recent last, up to 6 turns for better context):
 
 
     if suggested_tool.startswith("TASKS"):
-        tasks = get_tasks(user_id)
+        tasks = get_tasks(user_id) # Pass user_id, no is_guest
         pending_tasks = [task for task in tasks if not task.get('completed', False)]
         completed_tasks = [task for task in tasks if task.get('completed', False)]
         response_parts = []
@@ -183,7 +245,7 @@ Conversation history (most recent last, up to 6 turns for better context):
         yield "".join(response_parts)
         return
     elif suggested_tool == "SYLLABUS":
-        subjects = get_all_subjects(user_id)
+        subjects = get_all_subjects(user_id) # Pass user_id, no is_guest
         subject_list_for_response = "\n".join([f"- {s['name']}: {', '.join(s['topics'])}" for s in subjects])
         if subject_list_for_response:
             yield f"Here's your academic roadmap and subjects! Let's conquer these together! 🚀\n{subject_list_for_response}"

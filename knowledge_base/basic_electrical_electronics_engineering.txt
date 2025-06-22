@@ -1,0 +1,45 @@
+BASIC ELECTRICAL AND ELECTRONICS ENGINEERING (EE3251)
+
+UNIT I ELECTRICAL CIRCUITS AND MEASUREMENTS
+Ohm's Law: Statement, applications.
+Kirchhoff's Laws: KVL, KCL. Applications to series and parallel circuits.
+Network Theorems: Superposition theorem, Thevenin's theorem, Norton's theorem, Maximum Power Transfer theorem.
+AC Circuits: RMS, average, peak values. Phasor representation. RL, RC, RLC series and parallel circuits. Impedance, admittance, power factor.
+Three-Phase Systems: Star and Delta connections. Balanced load.
+Measurements: Ammeter, Voltmeter, Wattmeter, Energy meter.
+
+UNIT II ELECTRICAL MACHINES
+Transformers: Construction, working principle (mutual induction). Ideal transformer. EMF equation. Voltage regulation, efficiency. Types (step-up, step-down).
+DC Machines: Construction, working principle (Lorentz force). EMF equation of DC generator. Torque equation of DC motor. Types (series, shunt, compound). Characteristics.
+AC Motors:
+Single Phase Induction Motors: Working principle, types (split-phase, capacitor-start, shaded pole).
+Three Phase Induction Motors: Construction, working principle (rotating magnetic field). Slip. Torque-slip characteristics. Types (squirrel cage, slip ring).
+Alternators (Synchronous Generators): Construction, working principle. EMF equation.
+
+UNIT III SEMICONDUCTOR DEVICES AND APPLICATIONS
+PN Junction Diode: Construction, working principle, V-I characteristics.
+Rectifiers: Half-wave, Full-wave (center-tapped, bridge). Ripple factor, efficiency.
+Zener Diode: Principle, characteristics, voltage regulation.
+Bipolar Junction Transistors (BJTs): Construction, working principle (NPN, PNP). Configurations (CE, CB, CC). Characteristics (input, output).
+Transistor as an Amplifier: Operating point, load line.
+Field Effect Transistors (FETs): JFET, MOSFET (enhancement, depletion). Characteristics.
+Applications of Transistors: Switches, amplifiers.
+
+UNIT IV DIGITAL ELECTRONICS
+Number Systems: Decimal, Binary, Octal, Hexadecimal. Conversions.
+Boolean Algebra: Laws and theorems. De Morgan's theorems.
+Logic Gates: AND, OR, NOT, NAND, NOR, XOR, XNOR. Truth tables.
+K-Maps: Karnaugh Maps for simplification of Boolean expressions (2, 3, 4 variables).
+Combinational Circuits: Half adder, Full adder, Decoder, Encoder, Multiplexer, Demultiplexer.
+Sequential Circuits: Flip-flops (SR, JK, D, T). Registers, Counters (synchronous, asynchronous).
+
+UNIT V FUNDAMENTALS OF COMMUNICATION ENGINEERING
+Communication System: Block diagram.
+Modulation: Need for modulation. Types (Amplitude Modulation - AM, Frequency Modulation - FM, Phase Modulation - PM).
+Demodulation: Principles of AM and FM demodulation.
+Analog Communication: Broadcasting, telephone.
+Digital Communication: Advantages. Sampling, Quantization, Encoding (PCM).
+Multiplexing: Time Division Multiplexing (TDM), Frequency Division Multiplexing (FDM).
+Transmitters and Receivers: Basic block diagrams.
+Antennas: Basic concepts.
+Acoustics: Basic principles of sound.
