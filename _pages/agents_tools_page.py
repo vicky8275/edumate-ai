@@ -1,4 +1,3 @@
-# pages/agents_tools_page.py
 import streamlit as st
 from agents.quiz_agent import QuizAgent
 from agents.summarizer_agent import SummarizerAgent
@@ -8,7 +7,6 @@ from agents.tracker_agent import TrackerAgent
 from data_manager import get_all_subjects, get_tasks
 from datetime import datetime
 from collections import defaultdict
-
 
 def render_agents_tools_page(user_id):
     """
@@ -54,7 +52,6 @@ def render_agents_tools_page(user_id):
         render_planner_tool(user_id) # Planner needs user_id for context
     elif st.session_state.selected_ai_tool == "tracker":
         render_tracker_tool(user_id)
-
 
 # --- Individual Tool Rendering Functions (Adapted and cleaned for unified page) ---
 
@@ -235,9 +232,7 @@ def render_quiz_tool(user_id):
     else:
         st.info("You haven't taken any quizzes yet. Generate one above to get started! 🚀")
 
-
 def render_summarizer_tool():
-    # st.header("📝 Document Summarizer")
     st.markdown("#### 📝 Document Summarizer") # Smaller header
     st.write("Upload a document (PDF or DOCX) to get a quick summary of its key points!")
 
@@ -273,81 +268,100 @@ def render_summarizer_tool():
                     st.error(f"Error generating summary: {e}")
 
 def render_flashcard_tool():
-    # st.header("🧠 Flashcard Generator")
     st.markdown("#### 🧠 Flashcard Generator") # Smaller header
-    st.write("Upload a document (PDF or DOCX) to instantly create flashcards for effective memorization!")
+    st.write("Upload a document (PDF or DOCX) or enter text to instantly create flashcards for effective memorization!")
 
     flashcard_agent = FlashcardAgent()
 
+    # Option 1: Document upload
     uploaded_file = st.file_uploader("Upload Document for Flashcards", type=["pdf", "docx"], key="flashcard_uploader")
 
-    if uploaded_file:
-        num_cards = st.slider("Number of Flashcards", 1, 20, 5, key="num_cards_slider")
-        difficulty = st.selectbox("Difficulty Level", ["Basic", "Intermediate", "Advanced"], key="flashcard_difficulty_select")
-        shuffle = st.checkbox("Shuffle Flashcards", value=True, key="flashcard_shuffle_checkbox")
+    # Option 2: Manual entry
+    manual_text = st.text_area("Or enter text/content for flashcards (e.g., notes, Q&A, etc.):", key="flashcard_manual_text")
 
-        if st.button("Generate Flashcards", key="generate_flashcards_button"):
-            with st.spinner("Generating flashcards... This might take a moment!"):
-                try:
+    num_cards = st.slider("Number of Flashcards", 1, 20, 5, key="num_cards_slider")
+    difficulty = st.selectbox("Difficulty Level", ["Basic", "Intermediate", "Advanced"], key="flashcard_difficulty_select")
+    shuffle = st.checkbox("Shuffle Flashcards", value=True, key="flashcard_shuffle_checkbox")
+
+    if st.button("Generate Flashcards", key="generate_flashcards_button"):
+        with st.spinner("Generating flashcards... This might take a moment!"):
+            try:
+                flashcards = None
+                if uploaded_file:
                     flashcards = flashcard_agent.generate_flashcards(uploaded_file, num_cards, difficulty, shuffle)
+                elif manual_text.strip():
+                    flashcards = flashcard_agent.generate_flashcards_from_text(manual_text, num_cards, difficulty, shuffle)
+                else:
+                    st.warning("Please upload a document or enter text to generate flashcards.")
+                if flashcards:
                     st.session_state.current_flashcards_tool = flashcards # Store for display (unique key)
+                    st.subheader("Your New Flashcards!")
+                    for i, card in enumerate(st.session_state.current_flashcards_tool):
+                        with st.expander(f"Card {i+1}: {card['term'][:50]}..."):
+                            st.markdown(f"**Term:** {card['term']}")
+                            st.markdown(f"**Definition:** {card['definition']}")
+                            st.markdown("---")
+                    st.download_button(
+                        label="Download Flashcards (Printable)",
+                        data=flashcard_agent.format_flashcards_for_print(flashcards, uploaded_file.name if uploaded_file else "manual_text"),
+                        file_name=f"flashcards_{uploaded_file.name.split('.')[0] if uploaded_file else 'manual_text'}.txt",
+                        mime="text/plain",
+                        key="download_flashcards_button"
+                    )
+                else:
+                    st.info("No flashcards generated. Try adjusting parameters or using a different input.")
+            except Exception as e:
+                st.error(f"Error generating flashcards: {e}")
 
-                    if flashcards:
-                        st.subheader("Your New Flashcards!")
-                        for i, card in enumerate(st.session_state.current_flashcards_tool):
-                            with st.expander(f"Card {i+1}: {card['term'][:50]}..."): # Show first 50 chars of term
-                                st.markdown(f"**Term:** {card['term']}")
-                                st.markdown(f"**Definition:** {card['definition']}")
-                                st.markdown("---")
-
-                        st.download_button(
-                            label="Download Flashcards (Printable)",
-                            data=flashcard_agent.format_flashcards_for_print(flashcards, uploaded_file.name),
-                            file_name=f"flashcards_{uploaded_file.name.split('.')[0]}.txt",
-                            mime="text/plain",
-                            key="download_flashcards_button"
-                        )
-                    else:
-                        st.info("No flashcards generated. Try adjusting parameters or using a different document.")
-                except Exception as e:
-                    st.error(f"Error generating flashcards: {e}")
-
-def render_planner_tool(user_id): # Planner needs user_id
-    # st.header("📅 Study Planner")
+def render_planner_tool(user_id):
     st.markdown("#### 📅 Study Planner") # Smaller header
     st.write("Get a personalized study plan generated just for you!")
 
     planner_agent = PlannerAgent()
+    # Store form values in session state to access them after form
+    if 'planner_topic_input' not in st.session_state:
+        st.session_state.planner_topic_input = ''
+    if 'planner_duration_select' not in st.session_state:
+        st.session_state.planner_duration_select = '1 Week'
+    if 'planner_daily_time_input' not in st.session_state:
+        st.session_state.planner_daily_time_input = ''
+    if 'planner_level_select' not in st.session_state:
+        st.session_state.planner_level_select = 'Beginner'
+    if 'planner_style_select' not in st.session_state:
+        st.session_state.planner_style_select = 'Theory-focused'
 
-    with st.form("study_plan_form_tool"): # Unique form key
+    with st.form("study_plan_form_tool"):
         topic = st.text_input("Learning Goal/Topic (e.g., 'Linear Algebra', 'Python Basics')", key="planner_topic_input")
         duration = st.selectbox("Study Duration", ["1 Week", "2 Weeks", "1 Month", "3 Months", "6 Months"], key="planner_duration_select")
         daily_time = st.text_input("Daily Available Study Time (e.g., '2 hours', '90 minutes')", key="planner_daily_time_input")
         current_level = st.selectbox("Your Current Level", ["Beginner", "Intermediate", "Advanced"], key="planner_level_select")
         learning_style = st.selectbox("Your Preferred Learning Style", ["Theory-focused", "Hands-on/Project-based", "Mixed approach"], key="planner_style_select")
-
         submitted = st.form_submit_button("Generate Study Plan")
 
-        if submitted:
-            if not topic:
-                st.error("Please enter a learning goal/topic.")
-            else:
-                with st.spinner("Generating your personalized study plan..."):
-                    try:
-                        study_plan_content = planner_agent.create_study_plan(topic, duration, daily_time, current_level, learning_style)
-                        st.session_state.current_study_plan = study_plan_content # Still uses this common key for tracker
-                        st.session_state.plan_duration = duration # Still uses this common key for tracker
-                        st.markdown(study_plan_content)
+    # Only generate after form is submitted
+    if submitted:
+        if not topic:
+            st.error("Please enter a learning goal/topic.")
+        else:
+            with st.spinner("Generating your personalized study plan..."):
+                try:
+                    study_plan_content = planner_agent.create_study_plan(topic, duration, daily_time, current_level, learning_style)
+                    st.session_state.current_study_plan = study_plan_content # Still uses this common key for tracker
+                    st.session_state.plan_duration = duration # Still uses this common key for tracker
+                except Exception as e:
+                    st.error(f"Error generating study plan: {e}")
 
-                        st.download_button(
-                            label="Download Study Plan",
-                            data=study_plan_content,
-                            file_name=f"study_plan_{topic.replace(' ', '_')}_{datetime.now().strftime('%Y%m%d')}.md",
-                            mime="text/markdown",
-                            key="download_plan_button"
-                        )
-                    except Exception as e:
-                        st.error(f"Error generating study plan: {e}")
+    # Show the study plan and download button if available
+    if st.session_state.get('current_study_plan'):
+        st.markdown(st.session_state.current_study_plan)
+        safe_topic = st.session_state.get('planner_topic_input', 'study_plan') or 'study_plan'
+        st.download_button(
+            label="Download Study Plan",
+            data=st.session_state.current_study_plan,
+            file_name=f"study_plan_{safe_topic.replace(' ', '_')}_{datetime.now().strftime('%Y%m%d')}.md",
+            mime="text/markdown",
+            key="download_plan_button"
+        )
 
     # Optional: Display current study plan if one exists in session state
     if 'current_study_plan' in st.session_state and st.session_state.current_study_plan:
@@ -356,15 +370,9 @@ def render_planner_tool(user_id): # Planner needs user_id
         with st.expander("View Active Plan Details"):
             st.markdown(st.session_state.current_study_plan)
 
-
 def render_tracker_tool(user_id):
-    # st.header("📊 Progress Tracker")
     st.markdown("#### 📊 Progress Tracker") # Smaller header
     st.write("Monitor your overall academic progress, task completion, and quiz performance.")
 
     tracker_agent = TrackerAgent()
-
-    # Pass user_id to display_tracker_interface as it needs to fetch user-specific data
-    # The display_tracker_interface method internally uses st.session_state.quiz_history
-    # and st.session_state.current_study_plan which are managed by other tools/main.py
     tracker_agent.display_tracker_interface()

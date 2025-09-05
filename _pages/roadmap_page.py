@@ -1,4 +1,3 @@
-# pages/roadmap_page.py
 import streamlit as st
 from data_manager import get_all_subjects, get_tasks
 from collections import defaultdict
@@ -58,11 +57,6 @@ def render_roadmap_page(user_id):
         with st.expander(f"View Topics for {subject_name}"):
             if topics:
                 for topic in topics:
-                    status_icon = "✅" if topic_completion_status[subject_name][topic] else "⏳"
-                    st.markdown(f"- {status_icon} {topic}")
-                if progress_percentage == 100 and total_topics > 0:
-                    st.balloons() # Celebrate subject completion
-            else:
-                st.info("No topics defined for this subject.")
-        
-        st.markdown("---") # Separator for subjects
+                    topic_status = topic_completion_status[subject_name][topic]
+                    status_icon = "✅" if topic_status else "❌"
+                    st.write(f"{status_icon} {topic}")

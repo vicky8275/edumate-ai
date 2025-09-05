@@ -1,0 +1,1 @@
+To prevent Streamlit from showing the 'pages/' folder as multipage navigation, all navigation is handled in main.py via the sidebar. The 'pages/' folder is for code organization only. If Streamlit still shows extra pages, rename the folder to something like '_pages' or move it outside the app root.

@@ -1,4 +1,3 @@
-# pages/admin_page.py
 import streamlit as st
 from data_manager import add_subject, get_all_subjects, delete_subject
 from datetime import datetime

@@ -1,0 +1,2 @@
+# This file is used to indicate that the pages/ folder is for code only, not for Streamlit multipage navigation.
+# All navigation is handled in main.py sidebar.

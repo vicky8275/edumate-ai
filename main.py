@@ -20,12 +20,12 @@ st.set_page_config(
 
 
 # Import other pages
-from pages import login_page
+from _pages import login_page
 from app import render_student_dashboard
-from pages import chatbot_page
-from pages import admin_page
-from pages import roadmap_page
-from pages import agents_tools_page # NEW: Import the unified agents tools page
+from _pages import chatbot_page
+from _pages import admin_page
+from _pages import roadmap_page
+from _pages import agents_tools_page # NEW: Import the unified agents tools page
 
 # --- Session State Initialization ---
 if 'is_logged_in' not in st.session_state:
